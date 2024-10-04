@@ -15,12 +15,17 @@
 int main(void) {
   printf("Board started!\n");
 
+
   // Turn on all LEDs on the back of the Microbit
   // Add code here
+
 
   // Control LED with raw MMIO
   // Microphone LED is P0.20 and active high
   // Add code here
+   *(uint32_t*)(0x50000514) = 0 | (1<<20);
+   *(uint32_t*)(0x50000504) = 0 | (1<<20);
+  
 
   // loop forever
   printf("Looping\n");
@@ -30,7 +35,7 @@ int main(void) {
     // Button A is P0.14 and active low
     // Button B is P0.23 and active low
     // Add code here
-
+    gpio_print();
     nrf_delay_ms(100);
   }
 }
