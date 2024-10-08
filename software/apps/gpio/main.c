@@ -19,6 +19,29 @@ int main(void) {
   // Turn on all LEDs on the back of the Microbit
   // Add code here
 
+    gpio_config(21,GPIO_OUTPUT);
+    gpio_config(22,GPIO_OUTPUT);
+    gpio_config(15,GPIO_OUTPUT);
+    gpio_config(24,GPIO_OUTPUT);
+    gpio_config(19,GPIO_OUTPUT);
+    gpio_config(28,GPIO_OUTPUT); // sets all rows and columns to outputs
+    gpio_config(11,GPIO_OUTPUT);
+    gpio_config(31,GPIO_OUTPUT);
+    gpio_config(37,GPIO_OUTPUT);
+    gpio_config(30,GPIO_OUTPUT);
+
+    gpio_set(21);
+    gpio_set(22);
+    gpio_set(15); // sets all rows to high
+    gpio_set(24);
+    gpio_set(19);
+
+    gpio_clear(28); // sets all columns to low
+    gpio_clear(11);
+    gpio_clear(31);
+    gpio_clear(37);
+    gpio_clear(30);
+
 
   // Control LED with raw MMIO
   // Microphone LED is P0.20 and active high
@@ -37,6 +60,11 @@ int main(void) {
     // Add code here
     gpio_print();
     nrf_delay_ms(100);
+
+
+  
+  
+
   }
 }
 
