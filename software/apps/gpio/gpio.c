@@ -31,12 +31,15 @@ void gpio_config(uint8_t gpio_num, gpio_direction_t dir) {
   // Hint: Use proper PIN_CNF instead of DIR
   if (gpio_num>31){
     GPIO_REGS1->PIN_CNF[gpio_num-32] = 3*dir;
-    
+    printf("pin %d address: %d\n", gpio_num, &GPIO_REGS1->PIN_CNF[gpio_num-32]);
   }
   else{
     GPIO_REGS0->PIN_CNF[gpio_num] = 3*dir;
+    printf("pin %d address: %d\n", gpio_num, &GPIO_REGS0->PIN_CNF[gpio_num]);
   }
-  printf("set pin %d to %d \n", gpio_num, dir);
+  // printf("set pin %d to %d \n", gpio_num, dir);
+
+  
 
 }
 
@@ -46,14 +49,15 @@ void gpio_set(uint8_t gpio_num) {
   // Implement me
   // This function should make the pin high
   // It can assume that the pin has already been configured
+
+
   if (gpio_num>31){
-    GPIO_REGS1->OUTSET = 0 | (1 << (gpio_num-32));
+    GPIO_REGS1->OUTSET = (1 << (gpio_num-32));
   }
   else{
-    GPIO_REGS1->OUTSET = 0 | (1 << (gpio_num));
+    GPIO_REGS0->OUTSET = (1 << (gpio_num));
   }
 
-  
 }
 
 // Inputs: 
@@ -63,10 +67,10 @@ void gpio_clear(uint8_t gpio_num) {
   // This function should make the pin low
   // It can assume that the pin has already been configured
   if (gpio_num>31){
-    GPIO_REGS1->OUTCLR= 0 | (1 << (gpio_num-32));
+    GPIO_REGS1->OUTCLR= (1 << (gpio_num-32));
   }
   else{
-    GPIO_REGS1->OUTCLR= 0 | (1 << (gpio_num));
+    GPIO_REGS0->OUTCLR= (1 << (gpio_num));
   }
 }
 
@@ -95,12 +99,11 @@ void gpio_print(void) {
   // For example, you could print out struct field addresses
   // You don't otherwise have to write anything here
 
-  // printf("DIRSET Pointer: %p\n", &(GPIO_REGS0->DIRSET));
-  // printf("OUT Pointer: %p\n", &(GPIO_REGS0->OUT));
-  // printf("PIN_CNF[15] Pointer: %p\n", &(GPIO_REGS0->PIN_CNF[15]));
-  volatile int32_t value = *(int32_t*)(0x50000754);
+  printf("DIRSET Pointer: %p\n", &(GPIO_REGS0->DIRSET));
+  printf("OUT Pointer: %p\n", &(GPIO_REGS0->OUT));
+  printf("PIN_CNF[15] Pointer: %p\n", &(GPIO_REGS0->PIN_CNF[15]));
 
-  printf("pin 21 value: %d", value );
+  
 
 
 }
